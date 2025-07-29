@@ -1,6 +1,13 @@
 import clientPromise from "@/lib/mongodb"
+import { getServerSession } from "next-auth"
+import { authOptions } from "../auth/[...nextauth]/route"
 
 export async function POST(request) {
+  const session = await getServerSession(authOptions)
+
+  if(!session){
+    return Response.json({success: false, message: "Unauthorized"}, {status: 401})
+  }
 
   const body =await request.json()
   const client = await clientPromise
@@ -15,7 +22,8 @@ export async function POST(request) {
 
   const result = await collection.insertOne({
     url: body.url,
-    shorturl: body.shorturl
+    shorturl: body.shorturl,
+    email: session.user.email // Add user's email here
   })
 
   return Response.json({ success: true, error: false, message: 'URL generated successfully  ' })

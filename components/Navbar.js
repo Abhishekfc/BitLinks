@@ -1,5 +1,8 @@
+"use client"; // ✅ This is required to use hooks like useSession
+
 import React from 'react'
 import Link from 'next/link'
+import LoginBtn from './LoginBtn' // ✅ Import LoginBtn here
 
 const Navbar = () => {
   return (
@@ -15,7 +18,7 @@ const Navbar = () => {
             <li className='flex gap-3'>
                 <Link href='/shorten'><button className='bg-purple-200 p-3 py-1 cursor-pointer text-black font-bold rounded-lg shadow-xl hover:scale-105 transition-transform  duration-200 ease-in-out'>Try Now</button></Link>
                 <Link href='/github'><button className='bg-purple-200 p-3 py-1 cursor-pointer text-black font-bold rounded-lg shadow-xl hover:scale-105 transition-transform  duration-200 ease-in-out'>Github</button></Link>
-
+                <LoginBtn /> {/* ✅ Add login button here */}
             </li>
         </ul>
     </nav>

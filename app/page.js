@@ -3,10 +3,10 @@ import { Poppins } from "next/font/google";
 import Link from "next/link";
 
 const poppins = Poppins({
-  variable: "--font-poppins",
   subsets: ["latin"],
-  weight: "800", // ExtraBold
+  weight: ["800"], // Keep as string in array
 });
+
 
 export default function Home() {
   return (
