@@ -13,5 +13,5 @@ export default function LoginBtn() {
     );
   }
 
-  return <button onClick={() => signIn("google")}>Sign in with Google</button>;
+  return <button className='bg-purple-200 p-3 py-1 cursor-pointer text-black font-bold rounded-lg shadow-xl hover:scale-105 transition-transform  duration-200 ease-in-out'   onClick={() => signIn("google") }>Sign In</button>;
 }

@@ -1,19 +1,8 @@
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Providers from "@/components/Providers";
-import LoginBtn from "@/components/LoginBtn";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
+// ❌ Removed Inter font import due to turbopack issue
 
 export const metadata = {
   title: "Bitlinks - Your trusted URL shortner",
@@ -23,13 +12,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-purple-50`}
-      >
+      <body className="antialiased font-sans bg-purple-50">
         <Providers>
-          
-        <Navbar/>
-        {children}
+          <Navbar />
+          {children}
         </Providers>
       </body>
     </html>
