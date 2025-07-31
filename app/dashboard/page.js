@@ -1,13 +1,31 @@
 'use client'
 import React, { useState, useEffect } from 'react'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 
 const page = () => {
+    const {data: session,  status} = useSession()
+    const router = useRouter()
+
     const [links, setlinks] = useState([])
     const [loading, setloading] = useState(true)
 
+    // Redirect if unauthenticatd 
+    useEffect(() => {
+      if(status === "unauthenticated"){
+        router.replace('/Login')
+      }
+      
+    }, [status, router])
+
+    
+    
+    
+
 
     useEffect(() => {
+      if(status === "authenticated"){
         const fetchLinks = async () => {
 
             try {
@@ -29,7 +47,19 @@ const page = () => {
 
         }
         fetchLinks()
+      }
     }, [])
+
+    //show loading state
+    if(status === "loading"){
+      return(
+        <div className="flex min-h-screen justify-center items-center">
+          <p className="font-bold text-xl">Checking Authentication...</p>
+        </div>
+      )
+    }
+
+    if(!session) return null
 
 
     

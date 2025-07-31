@@ -7,8 +7,8 @@ export default function LoginBtn() {
   if (session) {
     return (
       <>
-        <p>Hi, {session.user.name}</p>
-        <button onClick={() => signOut()}>Sign out</button>
+        <p className="flex justify-center items-center">Hi, {session.user.name} </p>
+        <button className="bg-purple-200 p-3 py-1 cursor-pointer text-black font-bold rounded-lg shadow-xl hover:scale-105 transition-transform  duration-200 ease-in-out" onClick={() => signOut()}>Sign out</button>
       </>
     );
   }

@@ -9,14 +9,18 @@ const Shorten = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
 
-  // 🔒 Block unauthenticated users
+  const [url, seturl] = useState("");
+  const [shorturl, setshorturl] = useState("");
+  const [generated, setGenerated] = useState("");
+
+  // Redirect unauthenticated users
   useEffect(() => {
     if (status === "unauthenticated") {
-      router.replace("/Login"); // use replace() instead of push()
+      router.replace("/Login");
     }
   }, [status, router]);
 
-  // 🔒 While checking session, show nothing (or loading screen)
+  // While checking auth
   if (status === "loading") {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -25,31 +29,27 @@ const Shorten = () => {
     );
   }
 
-  // 🔒 Prevent rendering if not logged in
-  if (!session) return null;
-
-  const [url, seturl] = useState("");
-  const [shorturl, setshorturl] = useState("");
-  const [generated, setGenerated] = useState("");
+  // After loading, but still no session (maybe edge case)
+  if (!session) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <h1 className="text-xl font-bold">Unauthorized</h1>
+      </div>
+    );
+  }
 
   const generate = () => {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-    const raw = JSON.stringify({
-      url,
-      shorturl,
-    });
+    const raw = JSON.stringify({ url, shorturl });
 
-    const requestOptions = {
+    fetch("/api/generate", {
       method: "POST",
       headers: myHeaders,
       body: raw,
-      redirect: "follow",
-    };
-
-    fetch("/api/generate", requestOptions)
-      .then((response) => response.json())
+    })
+      .then((res) => res.json())
       .then((result) => {
         setGenerated(`${process.env.NEXT_PUBLIC_HOST}/${shorturl}`);
         seturl("");

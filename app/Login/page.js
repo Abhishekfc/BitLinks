@@ -16,7 +16,7 @@ export default function LoginPage() {
   }, [status, router]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-purple-100">
+    <div className="min-h-[90vh] flex items-center justify-center bg-purple-100">
       <div className="bg-white p-8 rounded-xl shadow-md text-center space-y-4">
         <h1 className="text-2xl font-bold">Welcome to BitLinks</h1>
         <p className="text-gray-600">Please sign in to continue</p>
